@@ -7,7 +7,7 @@ public enum  Suit {
 
     private  final String color;
 
-    private Suit(String cardSuit, String color){
+    Suit(String cardSuit, String color){
         this.cardSuit=cardSuit;
         this.color=color;
     }

@@ -84,6 +84,10 @@ public class Card extends ImageView {
         return card1.suit.getColor().equals(card2.suit.getColor());
     }
 
+    public static boolean isLower(Card lowerCard, Card upperCard) {
+        return lowerCard.rank.getCardRank()+1==upperCard.rank.getCardRank();
+    }
+
     public static boolean isSameSuit(Card card1, Card card2) {
         return card1.suit.getCardSuit().equals(card2.suit.getCardSuit());
     }
@@ -112,5 +116,6 @@ public class Card extends ImageView {
             }
         }
     }
+
 }
 
