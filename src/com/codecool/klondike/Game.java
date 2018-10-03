@@ -78,7 +78,12 @@ public class Game extends Pane {
         if (draggedCards.isEmpty())
             return;
         Card card = (Card) e.getSource();
-        Pile pile = getValidIntersectingPile(card, tableauPiles);
+        List<Pile> piles = FXCollections.observableArrayList();
+        piles.addAll(tableauPiles);
+        piles.addAll(foundationPiles);
+
+        Pile pile = getValidIntersectingPile(card, piles);
+
         //TODO
         if (pile != null) {
             handleValidMove(card, pile);
@@ -139,6 +144,9 @@ public class Game extends Pane {
         } else if (foundationPiles.contains(destPile)) {
             if (cardRank.equals(Rank.ACE) && destPile.numOfCards()==0) {
                 return true;
+            } else if ((!cardRank.equals(Rank.ACE)) && destPile.numOfCards()==0){
+                return false;
+
             } else {
                 return Card.isSameSuit(card, topCard) && Card.isLower(topCard, card);
             }
