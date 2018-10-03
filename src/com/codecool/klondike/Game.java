@@ -2,6 +2,7 @@ package com.codecool.klondike;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
@@ -77,7 +78,12 @@ public class Game extends Pane {
         if (draggedCards.isEmpty())
             return;
         Card card = (Card) e.getSource();
-        Pile pile = getValidIntersectingPile(card, tableauPiles);
+        List<Pile> piles = FXCollections.observableArrayList();
+        piles.addAll(tableauPiles);
+        piles.addAll(foundationPiles);
+
+        Pile pile = getValidIntersectingPile(card, piles);
+
         //TODO
         if (pile != null) {
             handleValidMove(card, pile);
@@ -106,12 +112,46 @@ public class Game extends Pane {
     }
 
     public void refillStockFromDiscard() {
-        //TODO
+        ObservableList<Card> discardedCards = discardPile.getCards();
+        for (int i = discardPile.numOfCards()-1; i > -1; i--) {
+            Card card = discardedCards.get(i);
+            card.flip();
+            stockPile.addCard(discardedCards.get(i));
+        }
+        discardPile.clear();
+
+        //DONE
         System.out.println("Stock refilled from discard pile.");
     }
 
     public boolean isMoveValid(Card card, Pile destPile) {
-        //TODO
+        Card topCard = destPile.getTopCard();
+        Rank cardRank = card.getRank();
+
+
+
+        //  System.out.println(topCard.getRank().getCardRank() , topCard.getSuit().getColor());
+        if (tableauPiles.contains(destPile)) {
+
+            if (cardRank.equals(Rank.KING) && destPile.numOfCards()==0) {
+                return true;
+            } else if ((!cardRank.equals(Rank.KING)) && destPile.numOfCards()==0){
+                return false;
+
+            } else {
+                return Card.isOppositeColor(card, topCard) && Card.isLower(card, topCard);
+            }
+        } else if (foundationPiles.contains(destPile)) {
+            if (cardRank.equals(Rank.ACE) && destPile.numOfCards()==0) {
+                return true;
+            } else if ((!cardRank.equals(Rank.ACE)) && destPile.numOfCards()==0){
+                return false;
+
+            } else {
+                return Card.isSameSuit(card, topCard) && Card.isLower(topCard, card);
+            }
+            //DONE
+        }
         return true;
     }
     private Pile getValidIntersectingPile(Card card, List<Pile> piles) {
