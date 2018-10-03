@@ -80,15 +80,21 @@ public class Card extends ImageView {
     }
 
     public static boolean isOppositeColor(Card card1, Card card2) {
-
-        return card1.suit.getColor().equals(card2.suit.getColor());
+        String card1Color = card1.suit.getColor();
+        String card2Color = card2.suit.getColor();
+        if (!card1Color.equals(card2Color)){
+            return true;
+        }
+        return false;
     }
 
     public static boolean isLower(Card lowerCard, Card upperCard) {
-        return lowerCard.rank.getCardRank()+1==upperCard.rank.getCardRank();
+        int lower = lowerCard.rank.getCardRank();
+        int upper = upperCard.rank.getCardRank();
+        return lower+1==upper;
     }
 
-    public static boolean isSameSuit(Card card1, Card card2) {
+    public  static boolean isSameSuit(Card card1, Card card2) {
         return card1.suit.getCardSuit().equals(card2.suit.getCardSuit());
     }
 

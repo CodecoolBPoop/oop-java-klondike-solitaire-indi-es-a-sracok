@@ -114,12 +114,36 @@ public class Game extends Pane {
             stockPile.addCard(discardedCards.get(i));
         }
         discardPile.clear();
-        //TODO
+
+        //DONE
         System.out.println("Stock refilled from discard pile.");
     }
 
     public boolean isMoveValid(Card card, Pile destPile) {
-        //TODO
+        Card topCard = destPile.getTopCard();
+        Rank cardRank = card.getRank();
+
+
+
+        //  System.out.println(topCard.getRank().getCardRank() , topCard.getSuit().getColor());
+        if (tableauPiles.contains(destPile)) {
+
+            if (cardRank.equals(Rank.KING) && destPile.numOfCards()==0) {
+                return true;
+            } else if ((!cardRank.equals(Rank.KING)) && destPile.numOfCards()==0){
+                return false;
+
+            } else {
+                return Card.isOppositeColor(card, topCard) && Card.isLower(card, topCard);
+            }
+        } else if (foundationPiles.contains(destPile)) {
+            if (cardRank.equals(Rank.ACE) && destPile.numOfCards()==0) {
+                return true;
+            } else {
+                return Card.isSameSuit(card, topCard) && Card.isLower(topCard, card);
+            }
+            //DONE
+        }
         return true;
     }
     private Pile getValidIntersectingPile(Card card, List<Pile> piles) {
