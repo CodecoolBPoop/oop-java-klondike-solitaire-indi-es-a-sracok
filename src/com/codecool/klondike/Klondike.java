@@ -23,16 +23,7 @@ public class Klondike extends Application {
 
         primaryStage.setTitle("Klondike Solitaire");
 
-        Button themeButton = new Button("Cute Theme");
-        game.getChildren().add(themeButton);
-        themeButton.setLayoutX(10);
-        themeButton.setLayoutY(10);
 
-        themeButton.setOnAction((event) -> {
-            game.setTableBackground(new Image("/table/teddy_bg.png"));
-            // Card.cardBackImage = new Image("card_images/card_back_rainbow.png");
-            Card.loadCardImages("card_images/card_back_rainbow.png");
-        });
 
         primaryStage.setScene(new Scene(game, WINDOW_WIDTH, WINDOW_HEIGHT));
         primaryStage.show();
@@ -46,6 +37,19 @@ public class Klondike extends Application {
         game.getChildren().add(newGameButton);
         newGameButton.setLayoutX(10);
         newGameButton.setLayoutY(10);
+
+
+        Button themeButton = new Button("Cute Theme");
+        game.getChildren().add(themeButton);
+        themeButton.setLayoutX(10);
+        themeButton.setLayoutY(50);
+
+        themeButton.setOnAction((event) -> {
+            game.setTableBackground(new Image("/table/teddy_bg.png"));
+            game.setCardBack();
+           // Card.loadCardImages("card_images/card_back_rainbow.png");
+            // Card.cardBackImage = new Image("card_images/card_back_rainbow.png");
+        });
 
         newGameButton.setOnAction((event) -> {
 
