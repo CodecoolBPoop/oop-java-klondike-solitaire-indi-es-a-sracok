@@ -109,7 +109,7 @@ public class Card extends ImageView {
     }
 
     public static void loadCardImages() {
-        cardBackImage = new Image("card_images/card_back.png");
+        cardBackImage = new Image("card_images/card_back_rainbow.png");
         Suit suitName = null;
         for (Suit suit : Suit.values()) {
             suitName = suit;
