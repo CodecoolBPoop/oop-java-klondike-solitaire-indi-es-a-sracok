@@ -16,8 +16,10 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Collections;
 
 public class Game extends Pane {
 
@@ -96,7 +98,6 @@ public class Game extends Pane {
         } else {
             draggedCards.forEach(MouseUtil::slideBack);
             draggedCards.clear();
-            return;
         }
     };
 
@@ -105,9 +106,35 @@ public class Game extends Pane {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
-
+            newGame();
 
         }
+    }
+
+    public void newGame() {
+        deck.clear();
+        foundationPiles.clear();
+        tableauPiles.clear();
+        stockPile.clear();
+        discardPile.clear();
+        getChildren().clear();
+//        List<Card> cards = FXCollections.observableArrayList();
+/*        for (Pile pile: foundationPiles) {
+            deck.addAll(pile.getCards());
+            pile.clear();
+        }
+        Collections.shuffle(deck);
+        dealCards();*/
+//        for (Card card : cards) {
+//            stockPile.addCard(card);
+//            card.flip();
+//        }
+
+        deck = Card.createNewDeck();
+        Collections.shuffle(deck);
+        initPiles();
+        dealCards();
+
     }
 
     public boolean isGameWon() {
@@ -250,7 +277,7 @@ public class Game extends Pane {
     }
 
     public void dealCards() {
-        Iterator<Card> deckIterator = deck.iterator();
+    Iterator<Card> deckIterator = deck.iterator();
         //TODO
 
 
