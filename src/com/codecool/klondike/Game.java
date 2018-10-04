@@ -111,8 +111,12 @@ public class Game extends Pane {
         }
     }
 
-    private void newGame() {
+    public void newGame() {
         deck.clear();
+        foundationPiles.clear();
+        tableauPiles.clear();
+        stockPile.clear();
+        discardPile.clear();
         getChildren().clear();
 //        List<Card> cards = FXCollections.observableArrayList();
 /*        for (Pile pile: foundationPiles) {
