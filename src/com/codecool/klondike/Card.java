@@ -108,8 +108,8 @@ public class Card extends ImageView {
         return result;
     }
 
-    public static void loadCardImages() {
-        cardBackImage = new Image("card_images/card_back.png");
+    public static void loadCardImages(String url) {
+        cardBackImage = new Image(url);
         Suit suitName = null;
         for (Suit suit : Suit.values()) {
             suitName = suit;
