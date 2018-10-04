@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.scene.control.Button;
 
 public class Klondike extends Application {
 
@@ -21,6 +22,12 @@ public class Klondike extends Application {
         game.setTableBackground(new Image("/table/green.png"));
 
         primaryStage.setTitle("Klondike Solitaire");
+
+        Button newGameButton = new Button("New Game");
+        game.getChildren().add(newGameButton);
+        newGameButton.setLayoutX(10);
+        newGameButton.setLayoutY(10);
+
         primaryStage.setScene(new Scene(game, WINDOW_WIDTH, WINDOW_HEIGHT));
         primaryStage.show();
     }
