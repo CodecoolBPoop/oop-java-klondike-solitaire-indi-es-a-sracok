@@ -20,17 +20,18 @@ public class Klondike extends Application {
     public void start(Stage primaryStage) {
         Card.loadCardImages();
         Game game = new Game();
+        Card card = new Card();
         game.setTableBackground(new Image("/table/green.png"));
 
         primaryStage.setTitle("Klondike Solitaire");
 
-        Button newGameButton = new Button("New Game");
-        game.getChildren().add(newGameButton);
-        newGameButton.setLayoutX(10);
-        newGameButton.setLayoutY(10);
+        Button themeButton = new Button("Cute Theme");
+        game.getChildren().add(themeButton);
+        themeButton.setLayoutX(10);
+        themeButton.setLayoutY(10);
 
-        newGameButton.setOnAction((event) -> {
-            System.out.println("Button Action");
+        themeButton.setOnAction((event) -> {
+            game.setTableBackground(new Image("/table/teddy_bg.png"));
         });
 
         primaryStage.setScene(new Scene(game, WINDOW_WIDTH, WINDOW_HEIGHT));
