@@ -5,6 +5,7 @@ import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Background;
@@ -88,9 +89,10 @@ public class Game extends Pane {
 
         Pile pile = getValidIntersectingPile(card, piles);
 
-        //TODO
+
         if (pile != null) {
             handleValidMove(card, pile);
+            if (isGameWon()) {handleGameWon();}
         } else {
             draggedCards.forEach(MouseUtil::slideBack);
             draggedCards.clear();
@@ -98,9 +100,28 @@ public class Game extends Pane {
         }
     };
 
+    private void handleGameWon() {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "You won. Would you like to play again?", ButtonType.YES, ButtonType.NO);
+        alert.showAndWait();
+
+        if (alert.getResult() == ButtonType.YES) {
+
+
+        }
+    }
+
     public boolean isGameWon() {
-        //TODO
-        return false;
+        int completedPiles = 0;
+        int pileOneToComplete = 0;
+        for (Pile pile : foundationPiles) {
+            if (pile.numOfCards() == 13) {
+                completedPiles++;
+            } else if (pile.numOfCards() == 12) {
+                pileOneToComplete++;
+
+            }
+        }
+         return (completedPiles == 3 && pileOneToComplete ==1);
     }
 
     public Game() {
@@ -115,6 +136,9 @@ public class Game extends Pane {
         card.setOnMouseReleased(onMouseReleasedHandler);
         card.setOnMouseClicked(onMouseClickedHandler);
     }
+
+
+
 
     public void refillStockFromDiscard() {
         ObservableList<Card> discardedCards = discardPile.getCards();
@@ -229,6 +253,8 @@ public class Game extends Pane {
         Iterator<Card> deckIterator = deck.iterator();
         //TODO
 
+
+
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j <= i; j++) {
                 Card card = deckIterator.next();
@@ -240,6 +266,7 @@ public class Game extends Pane {
                 getChildren().add(card);
             }
         }
+
 
 
         deckIterator.forEachRemaining(card -> {
