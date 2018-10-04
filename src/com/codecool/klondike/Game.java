@@ -16,8 +16,10 @@ import javafx.scene.layout.BackgroundSize;
 import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Collections;
 
 public class Game extends Pane {
 
@@ -110,16 +112,24 @@ public class Game extends Pane {
     }
 
     private void newGame() {
-        List<Card> cards = FXCollections.observableArrayList();
-        for (Pile pile: foundationPiles) {
-            cards.addAll(pile.getCards());
+        deck.clear();
+        getChildren().clear();
+//        List<Card> cards = FXCollections.observableArrayList();
+/*        for (Pile pile: foundationPiles) {
+            deck.addAll(pile.getCards());
             pile.clear();
         }
-            for (Card card : cards) {
-                stockPile.addCard(card);
-                card.flip();
-            }
+        Collections.shuffle(deck);
+        dealCards();*/
+//        for (Card card : cards) {
+//            stockPile.addCard(card);
+//            card.flip();
+//        }
 
+        deck = Card.createNewDeck();
+        Collections.shuffle(deck);
+        initPiles();
+        dealCards();
 
     }
 
