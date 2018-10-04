@@ -308,6 +308,21 @@ public class Game extends Pane {
         setBackground(new Background(new BackgroundImage(tableBackground,
                 BackgroundRepeat.REPEAT, BackgroundRepeat.REPEAT,
                 BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
+
+    }
+
+    public void setCardBack() {
+        Card.cardBackImage = new Image("card_images/card_back_rainbow.png");
+        List<Card> cards = FXCollections.observableArrayList();
+        cards.addAll(stockPile.getCards());
+        for (Pile pile: tableauPiles) {
+            cards.addAll(pile.getCards());
+        }
+        for (Card card: cards) {
+            if (card.isFaceDown()){
+                card.setImage(Card.cardBackImage);
+            }
+        }
     }
 
 }
