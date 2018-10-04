@@ -96,7 +96,6 @@ public class Game extends Pane {
         } else {
             draggedCards.forEach(MouseUtil::slideBack);
             draggedCards.clear();
-            return;
         }
     };
 
@@ -105,9 +104,23 @@ public class Game extends Pane {
         alert.showAndWait();
 
         if (alert.getResult() == ButtonType.YES) {
-
+            newGame();
 
         }
+    }
+
+    private void newGame() {
+        List<Card> cards = FXCollections.observableArrayList();
+        for (Pile pile: foundationPiles) {
+            cards.addAll(pile.getCards());
+            pile.clear();
+        }
+            for (Card card : cards) {
+                stockPile.addCard(card);
+                card.flip();
+            }
+
+
     }
 
     public boolean isGameWon() {
@@ -250,7 +263,7 @@ public class Game extends Pane {
     }
 
     public void dealCards() {
-        Iterator<Card> deckIterator = deck.iterator();
+    Iterator<Card> deckIterator = deck.iterator();
         //TODO
 
 
