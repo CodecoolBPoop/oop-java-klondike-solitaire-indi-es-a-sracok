@@ -3,6 +3,7 @@ package com.codecool.klondike;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import javafx.scene.control.Button;
 
@@ -27,6 +28,10 @@ public class Klondike extends Application {
         game.getChildren().add(newGameButton);
         newGameButton.setLayoutX(10);
         newGameButton.setLayoutY(10);
+
+        newGameButton.setOnAction((event) -> {
+            System.out.println("Button Action");
+        });
 
         primaryStage.setScene(new Scene(game, WINDOW_WIDTH, WINDOW_HEIGHT));
         primaryStage.show();
